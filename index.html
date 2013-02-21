@@ -9,7 +9,8 @@
   <meta name="author" content="kix">
 
   
-  <meta name="description" content="Сегодня задался вопросом о том, почему мой проект на Symfony 2 все еще целится в PHP 5.3 как основную версию. Ну и предположил, что, вероятно, dev- &hellip;">
+  <meta name="description" content="
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -55,6 +56,222 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=157638380967307";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/21/symfonymockercontainer-kak-mokat%27-siervisy/">SymfonyMockerContainer: как мокать сервисы</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T23:14:00+06:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=157638380967307";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/21/mockery-vkusnota/">Mockery: вкуснота</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T23:13:00+06:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+  </header>
+
+
+  <div class="entry-content"><p>Поскольку я тут продолжаю писать про тестирование, не могу не упомянуть о прекрасной библиотеке <a href="https://github.com/padraic/mockery">Mockery</a>. Это отличная реализация мок-объектов, которой в разы удобнее пользоваться, в сравнении со средствами PHPUnit, по крайней мере.</p>
+
+<p>Чтобы получить Mockery в проект, надо в блок <code>require</code> в <code>composer.json</code> вписать вот такую вот строчку:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'>    <span class="s2">&quot;require&quot;</span><span class="err">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;mockery/mockery&quot;</span><span class="p">:</span> <span class="s2">&quot;dev-master&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Сами авторы пока что советуют не привязываться к конкретной версии, хотя теги в репозитории есть (на момент написания заметки самая свежая версия — 0.7.2). Очевидно, проект еще не очень стабилен, но в любом случае очень удобен. Используется он например вот так:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">\Mockery</span> <span class="k">as</span> <span class="nx">m</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$geocoded</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Geocoder\Result\Geocoded</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$geocoded</span><span class="o">-&gt;</span><span class="na">fromArray</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+</span><span class='line'>    <span class="s1">&#39;latitude&#39;</span>  <span class="o">=&gt;</span> <span class="mi">12</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;longitude&#39;</span> <span class="o">=&gt;</span> <span class="mi">34</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;city&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;Test city&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$geocoderInterfaceMock</span> <span class="o">=</span> <span class="nx">m</span><span class="o">::</span><span class="na">mock</span><span class="p">(</span><span class="s1">&#39;\Geocoder\GeocoderInterface&#39;</span><span class="p">)</span>
+</span><span class='line'>                            <span class="o">-&gt;</span><span class="na">shouldReceive</span><span class="p">(</span><span class="s1">&#39;geocode&#39;</span><span class="p">)</span>
+</span><span class='line'>                            <span class="o">-&gt;</span><span class="na">with</span><span class="p">(</span><span class="s1">&#39;46.48.48.87&#39;</span><span class="p">)</span>
+</span><span class='line'>                            <span class="o">-&gt;</span><span class="na">andReturn</span><span class="p">(</span><span class="nv">$geocoded</span><span class="p">)</span>
+</span><span class='line'>                            <span class="o">-&gt;</span><span class="na">getMock</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$geocoderMock</span> <span class="o">=</span> <span class="nx">m</span><span class="o">::</span><span class="na">mock</span><span class="p">(</span><span class="s1">&#39;\Geocoder\GeocoderInterface&#39;</span><span class="p">)</span>
+</span><span class='line'>                 <span class="o">-&gt;</span><span class="na">shouldReceive</span><span class="p">(</span><span class="s1">&#39;using&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">once</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">with</span><span class="p">(</span><span class="nx">m</span><span class="o">::</span><span class="na">type</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">))</span>
+</span><span class='line'>               <span class="o">-&gt;</span><span class="na">andReturn</span><span class="p">(</span><span class="nv">$geocoderInterfaceMock</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getMock</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В приведенном блоке кода я использую весь тот функционал Mockery, который в приципе необходим в большинстве тестов.</p>
+
+<p>Обратите внимание, какой симпатичный (и человекопонятный!) у Mockery API: все методы называются так, как они и должны называться, все нужное выведено в статические функции у легкодоступного класса, словом — сказка, а не моки.</p>
+
+<p>Собственно, что к чему в коде.</p>
+
+<p>Метод <code>mock('\Имя\Класса\Как\Строка')</code> дает нам мок-объект, над которым мы впоследствии можем всячески издеваться. <code>shouldReceive('имяМетода')</code> добавляет в мок ожидание и возвращает его в стиле fluent interface. Этот самый fluent interface позволяет настроить ожидание.</p>
+
+<p>Метод ожидания <code>with()</code> принимает как точные значения параметров, так и <code>Matcher</code>. <code>Matcher</code> по сути является вот таким куском кода:</p>
+
+<figure class='code'><figcaption><span>Mockery\Matcher\Type  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">Mockery\Matcher</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Type</span> <span class="k">extends</span> <span class="nx">MatcherAbstract</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Check if the actual value matches the expected.</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param mixed $actual</span>
+</span><span class='line'><span class="sd">     * @return bool</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">match</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$actual</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$function</span> <span class="o">=</span> <span class="s1">&#39;is_&#39;</span> <span class="o">.</span> <span class="nx">strtolower</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_expected</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nb">function_exists</span><span class="p">(</span><span class="nv">$function</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nv">$function</span><span class="p">(</span><span class="nv">$actual</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nb">is_string</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_expected</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nb">class_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_expected</span><span class="p">)</span> <span class="o">||</span> <span class="nb">interface_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_expected</span><span class="p">)))</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nv">$actual</span> <span class="nx">instanceof</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_expected</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Видим, что путем нехитрого колдовства тут проверяется входящее значение, и оно может принадлежать либо к одному из стандартных типов (тех, которые проверяются методами <code>is_bool</code>, <code>is_string</code> и т.д.), либо являться экземпляром класса или экземпляром реализации какого-либо интерфейса, либо вовсе быть функцией.</p>
+
+<p>Также в создании <code>$geocoderMock</code> я после вызова <code>shouldReceive()</code> указываю, что метод <code>using</code> в имитируемом классе должен быть вызван один раз. И делаю это простым вызовом <code>\Mockery\Expectation::once()</code>, что несомненно куда как приятнее, чем стиль PHPUnit. А вот кстати <a href="https://github.com/padraic/mockery/blob/0.7.2/library/Mockery/Expectation.php#L418">полный набор методов</a> для указания количества вызовов.</p>
+
+<p>С методом <code>andReturn()</code>, думаю, все понятно — он принимает очередь параметров. В моем случае очередь состоит всегда из одного параметра, потому что тестируется достаточно простой функционал, не требующий особых танцев с бубном.</p>
+
+<p>Ну и небольшой нюанс в том, что после объявления ожиданий мока последним значением, вернувшимся в нашем fluent interface, является ожидание, а не сам мок, поэтому в конце вызова нужно вызвать еще и метод <code>\Mockery\Expectation::getMock()</code>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
