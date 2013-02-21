@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: PHP | my code blog]]></title>
+  <link href="http://kix.github.com/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://kix.github.com/"/>
+  <updated>2013-02-21T22:35:46+06:00</updated>
+  <id>http://kix.github.com/</id>
+  <author>
+    <name><![CDATA[kix]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Примеси в PHP 5.4]]></title>
+    <link href="http://kix.github.com/blog/2013/02/21/primiesi-v-php-5-dot-4/"/>
+    <updated>2013-02-21T21:57:00+06:00</updated>
+    <id>http://kix.github.com/blog/2013/02/21/primiesi-v-php-5-dot-4</id>
+    <content type="html"><![CDATA[<p>Сегодня задался вопросом о том, почему мой проект на Symfony 2 все еще целится в PHP 5.3 как основную версию. Ну и предположил, что, вероятно, dev-часть можно смело переводить на 5.4 и использовать в тестах все специфичные для новой версии плюшки.</p>
+
+<p>Начал я с трейтов, и нашел для них пока что как минимум одно хорошее применение: тесты.</p>
+
+<p>Поскольку приложение симфонийское, постоянно приходится при запуске тестов этот самый контейнер доставать из <code>static::createClient</code>. Этот момент я реализовал в виде вот такой примеси:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">/&lt;em&gt;*</span>
+</span><span class='line'><span class="x"> * WebTestCase client-aware test case</span>
+</span><span class='line'><span class="x"> &lt;/em&gt;/</span>
+</span><span class='line'><span class="x">trait ClientAware</span>
+</span><span class='line'><span class="x">{&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;/**</span>
+</span><span class='line'><span class="x"> * @var \Symfony\Bundle\FrameworkBundle\Client</span>
+</span><span class='line'><span class="x"> */</span>
+</span><span class='line'><span class="x">private $client;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">/**</span>
+</span><span class='line'><span class="x"> * Sets up client</span>
+</span><span class='line'><span class="x"> */</span>
+</span><span class='line'><span class="x">public function setUp()</span>
+</span><span class='line'><span class="x">{</span>
+</span><span class='line'><span class="x">    $this-&amp;gt;client = static::createClient();</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">/**</span>
+</span><span class='line'><span class="x"> * @return \Symfony\Component\DependencyInjection\ContainerInterface</span>
+</span><span class='line'><span class="x"> */</span>
+</span><span class='line'><span class="x">public function getContainer()</span>
+</span><span class='line'><span class="x">{</span>
+</span><span class='line'><span class="x">    return $this-&amp;gt;client-&amp;gt;getContainer();</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Как можно заметить, я не стал здесь отступать от использования метода <code>setUp()</code>, чтобы PHPUnit меня правильно понял, и мне не пришлось в каждом тесте городить свой <code>setUp()</code> с блекджеком и вызовом метода вроде <code>createClient()</code>. Ну и поскольку контейнер тоже приходится получать довольно часто, я вывел еще и шорткат-метод для этой самой цели.</p>
+
+<p>А еще почти что во всех тестах, связанных с моделями, приходится очищать БД в методе <code>setUp()</code>. Однако это довольно-таки много кода, и остается либо вынести всю логику в класс-наследник <code>WebTestCase</code>, или копипастить код. Меня такое решение не устроило, и я решил, что тут не помешает трейт:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">use \Doctrine\Common\DataFixtures;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;/&lt;em&gt;*</span>
+</span><span class='line'><span class="x"> * Purges DB, needs container</span>
+</span><span class='line'><span class="x"> &lt;/em&gt;/</span>
+</span><span class='line'><span class="x">trait PurgeDb</span>
+</span><span class='line'><span class="x">{&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;use ClientAware {</span>
+</span><span class='line'><span class="x">    setUp as clientAwareSetUp;</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">/**</span>
+</span><span class='line'><span class="x"> * Calls ClientAware trait method</span>
+</span><span class='line'><span class="x"> */</span>
+</span><span class='line'><span class="x">public function setUp()</span>
+</span><span class='line'><span class="x">{</span>
+</span><span class='line'><span class="x">    $this-&amp;gt;clientAwareSetUp();</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">    $em = $this-&amp;gt;getContainer()-&amp;gt;get(&#39;doctrine.orm.entity_manager&#39;);</span>
+</span><span class='line'><span class="x">    $purger = new DataFixtures\Purger\ORMPurger($em);</span>
+</span><span class='line'><span class="x">    $purger-&amp;gt;purge();</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Тут надо обратить внимание на строчки 9-11. В них конструкция, которая позволяет одной примеси включить в себя другую в случае, когда их имена методов совпадают. И поскольку в <code>PurgeDb</code> мне однозначно нужен контейнер, я вызываю метод <code>ClientAware::setUp()</code>.</p>
+
+<p>Дальше все достаточно очевидно: поскольку контейнер у меня уже есть, я могу смело достать из него Entity Manager и скормить его в Purger, который затем чистит мою БД.</p>
+
+<p>А теперь, собственно, как все это использовать? Вот тест, которому перед запуском нужна пустая база:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">use \Symfony\Bundle\FrameworkBundle\Test\WebTestCase;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;use PurgeDb;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;class FakerTest extends WebTestCase</span>
+</span><span class='line'><span class="x">{&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;use PurgeDb;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">public function testPurgeAndPopulateEntity()</span>
+</span><span class='line'><span class="x">{</span>
+</span><span class='line'><span class="x">    /** @var $em \Doctrine\ORM\EntityManager */</span>
+</span><span class='line'><span class="x">    $em = $this-&amp;gt;getContainer()-&amp;gt;get(&#39;doctrine.orm.entity_manager&#39;);</span>
+</span><span class='line'><span class="x">    $this-&amp;gt;assertEquals(</span>
+</span><span class='line'><span class="x">        0, </span>
+</span><span class='line'><span class="x">        count($em-&amp;gt;getRepository(&#39;WtProMainBundle:User&#39;)-&amp;gt;findAll())</span>
+</span><span class='line'><span class="x">    );</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">    $faker = new \My\Faker($this-&amp;gt;getContainer());</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">    $populator = $faker-&amp;gt;getPopulator();</span>
+</span><span class='line'><span class="x">    $populator-&amp;gt;addEntity(&#39;Entity\User&#39;, 3);</span>
+</span><span class='line'><span class="x">    $populator-&amp;gt;execute(</span>
+</span><span class='line'><span class="x">        $this-&amp;gt;getContainer()-&amp;gt;get(&#39;doctrine.orm.entity_manager&#39;)</span>
+</span><span class='line'><span class="x">    );</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">    $this-&amp;gt;assertEquals(</span>
+</span><span class='line'><span class="x">        3, </span>
+</span><span class='line'><span class="x">        count($em-&amp;gt;getRepository(&#39;WtProMainBundle:User&#39;)-&amp;gt;findAll())</span>
+</span><span class='line'><span class="x">    );</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Как можно заметить, метод <code>setUp()</code> в нем вообще отсутствует. А поскольку <code>PurgeDb</code> не только чистит БД, но и вызывает <code>setUp()</code> из <code>ClientAware</code>, в моем тесте я могу всегда получить контейнер легко и непринужденно.</p>
+]]></content>
+  </entry>
+  
+</feed>
