@@ -4,7 +4,7 @@
   <title><![CDATA[Category: PHP | kix's code blog]]></title>
   <link href="http://kix.github.com/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://kix.github.com/"/>
-  <updated>2013-02-22T01:38:20+06:00</updated>
+  <updated>2013-04-04T11:20:49+06:00</updated>
   <id>http://kix.github.com/</id>
   <author>
     <name><![CDATA[kix]]></name>
@@ -12,6 +12,172 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Mockery: вкуснота]]></title>
+    <link href="http://kix.github.com/blog/2013/04/04/mockery-vkusnota/"/>
+    <updated>2013-04-04T11:20:00+06:00</updated>
+    <id>http://kix.github.com/blog/2013/04/04/mockery-vkusnota</id>
+    <content type="html"><![CDATA[<p>Поскольку я тут продолжаю писать про тестирование, не могу не упомянуть о прекрасной библиотеке <a href="https://github.com/padraic/mockery">Mockery</a>. Это отличная реализация мок-объектов, которой в разы удобнее пользоваться, в сравнении со средствами PHPUnit, по крайней мере.</p>
+
+<p>Чтобы получить Mockery в проект, надо в блок <code>require</code> в <code>composer.json</code> вписать вот такую вот строчку:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="err">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;pre&gt;&lt;code&gt;</span><span class="s2">&quot;require&quot;</span><span class="err">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nt">&quot;mockery/mockery&quot;</span><span class="p">:</span> <span class="s2">&quot;dev-master&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="err">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Сами авторы пока что советуют не привязываться к конкретной версии, хотя теги в репозитории есть (на момент написания заметки самая свежая версия — 0.7.2). Очевидно, проект еще не очень стабилен, но в любом случае очень удобен. Используется он например вот так:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">use \Mockery as m;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;$geocoded = new \Geocoder\Result\Geocoded();</span>
+</span><span class='line'><span class="x">$geocoded-&gt;fromArray(array(&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;&#39;latitude&#39;  =&amp;gt; 12,</span>
+</span><span class='line'><span class="x">&#39;longitude&#39; =&amp;gt; 34,</span>
+</span><span class='line'><span class="x">&#39;city&#39;      =&amp;gt; &#39;Test city&#39;,</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;));&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;$geocoderInterfaceMock = m::mock(&#39;\Geocoder\GeocoderInterface&#39;)&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;                      -&amp;gt;shouldReceive(&#39;geocode&#39;)</span>
+</span><span class='line'><span class="x">                      -&amp;gt;with(&#39;46.48.48.87&#39;)</span>
+</span><span class='line'><span class="x">                      -&amp;gt;andReturn($geocoded)</span>
+</span><span class='line'><span class="x">                      -&amp;gt;getMock();</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;$geocoderMock = m::mock(&#39;\Geocoder\GeocoderInterface&#39;)&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;             -&amp;gt;shouldReceive(&#39;using&#39;)-&amp;gt;once()-&amp;gt;with(m::type(&#39;string&#39;))</span>
+</span><span class='line'><span class="x">             -&amp;gt;andReturn($geocoderInterfaceMock)-&amp;gt;getMock();</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>В приведенном блоке кода я использую весь тот функционал Mockery, который в приципе необходим в большинстве тестов.</p>
+
+<p>Обратите внимание, какой симпатичный (и человекопонятный!) у Mockery API: все методы называются так, как они и должны называться, все нужное выведено в статические функции у легкодоступного класса, словом — сказка, а не моки.</p>
+
+<p>Собственно, что к чему в коде.</p>
+
+<p>Метод <code>mock('\Имя\Класса\Как\Строка')</code> дает нам мок-объект, над которым мы впоследствии можем всячески издеваться. <code>shouldReceive('имяМетода')</code> добавляет в мок ожидание и возвращает его в стиле fluent interface. Этот самый fluent interface позволяет настроить ожидание.</p>
+
+<p>Метод ожидания <code>with()</code> принимает как точные значения параметров, так и <code>Matcher</code>. <code>Matcher</code> по сути является вот таким куском кода:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Mockery\Matcher\Type  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;namespace Mockery\Matcher;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;class Type extends MatcherAbstract</span>
+</span><span class='line'><span class="x">{&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;/**</span>
+</span><span class='line'><span class="x"> * Check if the actual value matches the expected.</span>
+</span><span class='line'><span class="x"> *</span>
+</span><span class='line'><span class="x"> * @param mixed $actual</span>
+</span><span class='line'><span class="x"> * @return bool</span>
+</span><span class='line'><span class="x"> */</span>
+</span><span class='line'><span class="x">public function match(&amp;amp;$actual)</span>
+</span><span class='line'><span class="x">{</span>
+</span><span class='line'><span class="x">    $function = &#39;is_&#39; . strtolower($this-&amp;gt;_expected);</span>
+</span><span class='line'><span class="x">    if (function_exists($function)) {</span>
+</span><span class='line'><span class="x">        return $function($actual);</span>
+</span><span class='line'><span class="x">    } elseif (is_string($this-&amp;gt;_expected)</span>
+</span><span class='line'><span class="x">    &amp;amp;&amp;amp; (class_exists($this-&amp;gt;_expected) || interface_exists($this-&amp;gt;_expected))) {</span>
+</span><span class='line'><span class="x">        return $actual instanceof $this-&amp;gt;_expected;</span>
+</span><span class='line'><span class="x">    }</span>
+</span><span class='line'><span class="x">    return false;</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Видим, что путем нехитрого колдовства тут проверяется входящее значение, и оно может принадлежать либо к одному из стандартных типов (тех, которые проверяются методами <code>is_bool</code>, <code>is_string</code> и т.д.), либо являться экземпляром класса или экземпляром реализации какого-либо интерфейса, либо вовсе быть функцией.</p>
+
+<p>Также в создании <code>$geocoderMock</code> я после вызова <code>shouldReceive()</code> указываю, что метод <code>using</code> в имитируемом классе должен быть вызван один раз. И делаю это простым вызовом <code>\Mockery\Expectation::once()</code>, что несомненно куда как приятнее, чем стиль PHPUnit. А вот кстати <a href="https://github.com/padraic/mockery/blob/0.7.2/library/Mockery/Expectation.php#L418">полный набор методов</a> для указания количества вызовов.</p>
+
+<p>С методом <code>andReturn()</code>, думаю, все понятно — он принимает очередь параметров. В моем случае очередь состоит всегда из одного параметра, потому что тестируется достаточно простой функционал, не требующий особых танцев с бубном.</p>
+
+<p>Ну и небольшой нюанс в том, что после объявления ожиданий мока последним значением, вернувшимся в нашем fluent interface, является ожидание, а не сам мок, поэтому в конце вызова нужно вызвать еще и метод <code>\Mockery\Expectation::getMock()</code>.</p>
+
+<p>Конечно, это ваше дело, чем пользоваться — Mockery или средствами, встроенными в PHPUnit, но все же мне кажется, что эта библиотека более чем достойна упоминания.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Примеси в PHP 5.4]]></title>
