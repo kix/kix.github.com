@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: PHP | kix's code blog]]></title>
+  <title><![CDATA[Category: PHP | ]]></title>
   <link href="http://kix.github.com/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://kix.github.com/"/>
-  <updated>2013-04-04T11:20:49+06:00</updated>
+  <updated>2013-04-04T11:22:44+06:00</updated>
   <id>http://kix.github.com/</id>
   <author>
     <name><![CDATA[kix]]></name>
