@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: links | ]]></title>
+  <link href="http://kix.github.com/blog/categories/links/atom.xml" rel="self"/>
+  <link href="http://kix.github.com/"/>
+  <updated>2013-04-08T16:47:43+06:00</updated>
+  <id>http://kix.github.com/</id>
+  <author>
+    <name><![CDATA[kix]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ссылки]]></title>
+    <link href="http://kix.github.com/blog/2013/04/08/ssylki/"/>
+    <updated>2013-04-08T16:32:00+06:00</updated>
+    <id>http://kix.github.com/blog/2013/04/08/ssylki</id>
+    <content type="html"><![CDATA[<ul>
+<li>Наконец-то запилили <a href="https://github.com/adrienbrault/idea-php-symfony2-plugin">плагин для PHPStorm</a>, который вскрывает симфонийский контейнер и рисует подсказки для объектов, возвращающихся из <code>$container-&gt;get('')</code></li>
+<li>Волшебный бандлоподключатель вот еще <a href="https://github.com/alphalemon/BootstrapBundle">сделали</a> — толку, правда, немного, все равно конфиги-то править надо, плюс еще головняки с приоритетами рутов. Но штука давно напрашивалась.</li>
+<li><a href="https://github.com/pborreli/SpBowerBundle">Прицепили Bower через бандл</a>, тонкостей не смотрел, но — радует. И мне как-то пофиг, я скрипт на Grunt запилил для сборки статики, и верстка не сильно заботит.</li>
+<li>Я конечно слоупок, но доктриновские расширения тоже давно хотели быть завернутыми в примеси. Вот, <a href="https://github.com/KnpLabs/DoctrineBehaviors">сделали наконец</a>.</li>
+<li>Скромная полезняшка — <a href="https://github.com/shrikeh/teapot">HTTP status codes, обернутые в класс с константами</a>.</li>
+<li><a href="https://github.com/cboden/Ratchet">Вебсокеты для PHP</a>. Да, знаю, что боянище.</li>
+<li>Наконец-то, человеческий <a href="https://github.com/lox/pheasant">легковесный дата-маппер</a>, пусть и немного страшненький. Для некрупных проектов, где лезть через DBAL стыдно, а Доктрину цеплять лень — самое то.</li>
+<li><a href="https://github.com/lox/regreph">Детектор регрессии для PHP</a> со статистикой и поэтессами. Чтобы джуниоров по рукам бить!</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
