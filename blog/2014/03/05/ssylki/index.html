@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kix.github.com/blog/2013/04/08/ssylki">
+  <link rel="canonical" href="http://kix.github.com/blog/2014/03/05/ssylki">
   <link href="/favicon.ico" rel="icon">
   
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-04-08T16:32:00+06:00" pubdate data-updated="true">Apr 8<span>th</span>, 2013</time>
+<time datetime="2014-03-05T15:51:00+06:00" pubdate data-updated="true">Mar 5<span>th</span>, 2014</time>
         
       </p>
     
@@ -106,15 +106,44 @@
   </header>
 
 
-<div class="entry-content"><ul>
-<li>Наконец-то запилили <a href="https://github.com/adrienbrault/idea-php-symfony2-plugin">плагин для PHPStorm</a>, который вскрывает симфонийский контейнер и рисует подсказки для объектов, возвращающихся из <code>$container-&gt;get('')</code></li>
-<li>Волшебный бандлоподключатель вот еще <a href="https://github.com/alphalemon/BootstrapBundle">сделали</a> — толку, правда, немного, все равно конфиги-то править надо, плюс еще головняки с приоритетами рутов. Но штука давно напрашивалась.</li>
-<li><a href="https://github.com/pborreli/SpBowerBundle">Прицепили Bower через бандл</a>, тонкостей не смотрел, но — радует. И мне как-то пофиг, я скрипт на Grunt запилил для сборки статики, и верстка не сильно заботит.</li>
-<li>Я конечно слоупок, но доктриновские расширения тоже давно хотели быть завернутыми в примеси. Вот, <a href="https://github.com/KnpLabs/DoctrineBehaviors">сделали наконец</a>.</li>
-<li>Скромная полезняшка — <a href="https://github.com/shrikeh/teapot">HTTP status codes, обернутые в класс с константами</a>.</li>
-<li><a href="https://github.com/cboden/Ratchet">Вебсокеты для PHP</a>. Да, знаю, что боянище.</li>
-<li>Наконец-то, человеческий <a href="https://github.com/lox/pheasant">легковесный дата-маппер</a>, пусть и немного страшненький. Для некрупных проектов, где лезть через DBAL стыдно, а Доктрину цеплять лень — самое то.</li>
-<li><a href="https://github.com/lox/regreph">Детектор регрессии для PHP</a> со статистикой и поэтессами. Чтобы джуниоров по рукам бить!</li>
+<div class="entry-content"><h2>PHP</h2>
+
+<ul>
+<li><a href="https://github.com/virtphp/virtphp">Виртуализация для PHP</a>, ура-ура. Почти что RVM обещают!</li>
+<li><a href="https://github.com/schmittjoh/JMSDebuggingBundle">Расширенный дебаггер для Sf2</a> — умеет много чего крутого, дает советы, как чинить баги, и прочая.</li>
+<li><a href="https://github.com/Ocramius/ProxyManager">Прокси-менеджер</a></li>
+<li><a href="https://github.com/outlandishideas/wpackagist">Packagist-репозиторий</a> для WordPress — можно декларативно запрашивать плагины и темы. Окультуривают WP, круто.</li>
+<li><a href="https://github.com/knpuniversity/symfonycon-frontend">Пример от KnpLabs</a> о том, как собрать приличный фронтенд на Sf2.</li>
+<li><a href="https://github.com/Anahkiasen/rocketeer">Деплоер</a> для тех, кто не любит мешать языки и деплоить PHP-приложения через Capistrano.</li>
+<li><a href="https://github.com/Codegyre/Robo">Почти что Grunt</a> для PHP. Сборщик и таск-раннер. API ничотак.</li>
+<li>Ребята обещают <a href="https://github.com/lioshi/WonderCacheBundle">чудо-кэш для Sf2</a>, но надо смотреть, что там к чему</li>
+<li>Автоматическая <a href="https://github.com/dantleech/code-mover">рефакторилка</a>, по сути — миграции для исходников. Годнота, можно ж ее в CI запихать.</li>
+<li><a href="https://github.com/thephpleague/shunt">Раннер параллельных задач</a> по SSH</li>
+<li><a href="https://github.com/Qafoo/changetrack">Анализатор изменений в проектах</a> — смотрит, какие классы/методы чаще всего меняются, можно всякие полезные метрики собирать из него.</li>
+</ul>
+
+
+<h2>Ruby/Rails</h2>
+
+<ul>
+<li>Кошерный <a href="https://github.com/brian-mann/rails-generators">генератор Marionette-приложений</a> для Rails. Чтобы не приходилось забивать себе голову тем, как бы там все устроить.</li>
+<li>Обещают удобное <a href="https://github.com/fredwu/api_taster">тестирование API в Рельсах</a></li>
+</ul>
+
+
+<h2>Веб</h2>
+
+<ul>
+<li><a href="https://github.com/katiefenn/parker">Parker</a> — инструмент для статического анализа CSS, можно использовать для регрессного тестирования и подобных вещей.</li>
+</ul>
+
+
+<h2>Прочее</h2>
+
+<ul>
+<li><a href="https://github.com/justin/SilencedBots">Набор регекспов</a> для фильтрования Твиттера от всякого хлама. Надо делать русскую версию, ящетаю.</li>
+<li><a href="https://github.com/neiesc/ListOfMinimalistFrameworks">Список минималистичных фреймворков</a> для всего подряд — CSS, C, Haskell, Java, да что угодно.</li>
+<li><a href="https://github.com/tgriesser/knex">Query builder</a> для Ноды. Там как-то тухло было с DBAL, сейчас вот улучшается ситуация.</li>
 </ul>
 
 </div>
@@ -151,7 +180,7 @@
   
 
 
-<time datetime="2013-04-08T16:32:00+06:00" pubdate data-updated="true">Apr 8<span>th</span>, 2013</time>
+<time datetime="2014-03-05T15:51:00+06:00" pubdate data-updated="true">Mar 5<span>th</span>, 2014</time>
       
 
 <span class="categories">
@@ -165,7 +194,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kix.github.com/blog/2013/04/08/ssylki/" data-via="_kix" data-counturl="http://kix.github.com/blog/2013/04/08/ssylki/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kix.github.com/blog/2014/03/05/ssylki/" data-via="_kix" data-counturl="http://kix.github.com/blog/2014/03/05/ssylki/" >Tweet</a>
   
   
   
@@ -176,10 +205,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/04/04/mockery-vkusnota/" title="Previous Post: Mockery: вкуснота">&laquo; Mockery: вкуснота</a>
+        <a class="basic-alignment left" href="/blog/2013/04/08/ssylki/" title="Previous Post: Ссылки">&laquo; Ссылки</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/03/05/ssylki/" title="next Post: Ссылки">Ссылки &raquo;</a>
       
     </p>
   </footer>
